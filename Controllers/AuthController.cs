@@ -47,7 +47,9 @@ namespace Controllers
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return BadRequest("Invalid password");
 
-            return Ok("Welcome to the system bro!!");    
+	    string token = CreateToken(user);
+
+            return Ok(token);    
         }
 
         private string CreateToken(User user)
