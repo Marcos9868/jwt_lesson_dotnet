@@ -47,7 +47,7 @@ namespace Controllers
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return BadRequest("Invalid password");
 
-	    string token = CreateToken(user);
+	        string token = CreateToken(user);
 
             return Ok(token);    
         }
@@ -60,7 +60,7 @@ namespace Controllers
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!
+                _configuration.GetSection("Authentication:Schemes:Bearer:SigningKeys:0:Value").Value!
             ));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
